@@ -1,3 +1,4 @@
+import os
 from typing import Any
 
 import PIL.Image as pil_image
@@ -6,6 +7,8 @@ from data_access.files.interfaces.i_image_loader import IImageLoader
 
 class PillowImageLoader(IImageLoader, object):
     def __init__(self, full_path: str) -> None:
+        if not os.path.exists(full_path):
+            raise OSError("The path provided to the constructor of PilloImageLoader does not exist!")
         self._full_path: str = full_path
         self._file: Any = None
 
