@@ -23,6 +23,8 @@ full_path = "D:\\Data\\image_data\\images\\my_camera\\DCIM\\100___08\\IMG_0001.J
 file_reader = PillowImageLoader(full_path)
 file_reader.open()
 image = file_reader.read()
+properties = [property for property in dir(image) if not property.startswith("_")]
+print(properties)
 file_reader.close()
 
 x = 1

@@ -1,35 +1,34 @@
-from typing import Any
-
+import numpy
 from pure_interface import Interface, abstractmethod
 
 
-class IImage(Interface):
+class IImageData(Interface):
     @property
     @abstractmethod
-    def matrix(self) -> Any:
+    def matrix(self) -> numpy.ndarray:
         pass
 
     @property
     @abstractmethod
-    def bit_depth(self) -> Any:
+    def bit_depth(self) -> numpy.int8:
         pass
 
     @property
     @abstractmethod
-    def number_of_rows(self) -> Any:
+    def number_of_rows(self) -> numpy.int32:
         pass
 
     @property
     @abstractmethod
-    def number_of_columns(self) -> Any:
+    def number_of_columns(self) -> numpy.int32:
         pass
 
     @property
     @abstractmethod
-    def number_of_channels(self) -> Any:
+    def number_of_channels(self) -> numpy.int8:
         pass
 
     @property
     @abstractmethod
-    def color_mode(self) -> Any:
+    def color_mode(self) -> str:
         pass
