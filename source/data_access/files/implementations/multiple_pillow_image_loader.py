@@ -2,6 +2,7 @@ from typing import Any, List
 
 from data_access.files.implementations.pillow_image_loader import PillowImageLoader
 from data_access.files.interfaces.i_multiple_image_loader import IMultipleImageLoader
+from scripts.app_create_json_with_image_files import get_list_of_files
 
 
 class MultiplePillowImageLoader(IMultipleImageLoader, object):
@@ -26,15 +27,16 @@ class MultiplePillowImageLoader(IMultipleImageLoader, object):
         path = next(self._paths_to_files, self._end)
         if path is self._end:
             self._is_image_available = False
-            return
+            return None
         self._pillow_image_loader = PillowImageLoader(path)
         self._pillow_image_loader.open()
+        data = self._pillow_image_loader.read()
+        self._pillow_image_loader.close()
+        return data
 
     @property
     def is_image_available(self) -> bool:
         return self._is_image_available
 
     def read(self) -> Any:
-        self._load_next()
-        yield self._pillow_image_loader.read()
-        self._pillow_image_loader.close()
+        return self._load_next()

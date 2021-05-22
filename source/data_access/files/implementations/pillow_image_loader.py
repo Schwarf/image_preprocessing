@@ -13,6 +13,8 @@ class PillowImageLoader(IImageLoader, object):
         self._file: Any = None
 
     def read(self) -> Any:
+        if self._file is None:
+            raise ValueError(f"File {self._file} in PillowImageLoader has not been opened yet.")
         return self._file
 
     def open(self) -> None:
@@ -20,14 +22,4 @@ class PillowImageLoader(IImageLoader, object):
 
     def close(self) -> None:
         self._file.close()
-
-
-full_path = "D:\\Data\\image_data\\images\\my_camera\\DCIM\\100___08\\IMG_0001.JPG"
-file_reader = PillowImageLoader(full_path)
-file_reader.open()
-image = file_reader.read()
-properties = [property for property in dir(image) if not property.startswith("_")]
-print(properties)
-file_reader.close()
-
-x = 1
+        self._file = None
