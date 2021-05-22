@@ -2,7 +2,6 @@ from typing import Any, List
 
 from data_access.files.implementations.pillow_image_loader import PillowImageLoader
 from data_access.files.interfaces.i_multiple_image_loader import IMultipleImageLoader
-from scripts.app_create_json_with_image_files import get_list_of_files
 
 
 class MultiplePillowImageLoader(IMultipleImageLoader, object):
@@ -30,7 +29,7 @@ class MultiplePillowImageLoader(IMultipleImageLoader, object):
             return None
         self._pillow_image_loader = PillowImageLoader(path)
         self._pillow_image_loader.open()
-        data = self._pillow_image_loader.read()
+        data = self._pillow_image_loader.get_data()
         self._pillow_image_loader.close()
         return data
 
@@ -38,5 +37,5 @@ class MultiplePillowImageLoader(IMultipleImageLoader, object):
     def is_image_available(self) -> bool:
         return self._is_image_available
 
-    def read(self) -> Any:
+    def get_data(self) -> Any:
         return self._load_next()

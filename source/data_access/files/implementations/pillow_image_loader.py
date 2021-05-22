@@ -12,7 +12,7 @@ class PillowImageLoader(IImageLoader, object):
         self._full_path: str = full_path
         self._file: Any = None
 
-    def read(self) -> Any:
+    def get_data(self) -> Any:
         if self._file is None:
             raise ValueError(f"File {self._file} in PillowImageLoader has not been opened yet.")
         return self._file

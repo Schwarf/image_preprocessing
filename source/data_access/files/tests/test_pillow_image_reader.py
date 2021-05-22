@@ -37,14 +37,14 @@ class TestPillowImageReader:
         create_tmp_file
         loader = PillowImageLoader(full_path)
         with pytest.raises(ValueError, match="File .*"):
-            loader.read()
+            loader.get_data()
 
-    @mock.patch.object(PillowImageLoader, "read")
+    @mock.patch.object(PillowImageLoader, "get_data")
     def test_read_is_called(self, mock, full_path, create_tmp_file):
         create_tmp_file
         loader = PillowImageLoader(full_path)
         mock.assert_not_called()
-        loader.read()
+        loader.get_data()
         mock.assert_called_once()
 
     @mock.patch.object(PillowImageLoader, "close")
