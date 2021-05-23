@@ -6,19 +6,16 @@ from data_access.files.interfaces.i_image_loader import IImageLoader
 
 
 class PillowImageLoader(IImageLoader, object):
-    def __init__(self, full_path: str) -> None:
-        if not os.path.exists(full_path):
-            raise OSError("The path provided to the constructor of PilloImageLoader does not exist!")
-        self._full_path: str = full_path
+    def __init__(self) -> None:
         self._file: Any = None
 
     def get_data(self) -> Any:
-        if self._file is None:
-            raise ValueError(f"File {self._file} in PillowImageLoader has not been opened yet.")
         return self._file
 
-    def open(self) -> None:
-        self._file = pil_image.open(self._full_path)
+    def open(self, path_to_file) -> None:
+        if not os.path.exists(path_to_file):
+            raise ValueError(f"The path '{path_to_file}' provided to method 'open' does not exist!")
+        self._file = pil_image.open(path_to_file)
 
     def close(self) -> None:
         self._file.close()
