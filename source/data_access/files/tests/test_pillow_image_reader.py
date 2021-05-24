@@ -5,7 +5,7 @@ from data_access.files.implementations.pillow_image_loader import PillowImageLoa
 
 @pytest.fixture()
 def full_path(tmp_path):
-    path = tmp_path / "test.jpg"
+    path = tmp_path / "tests.jpg"
     return path
 
 

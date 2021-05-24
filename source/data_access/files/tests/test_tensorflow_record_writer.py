@@ -11,7 +11,7 @@ def full_path(tmp_path):
 
 @pytest.fixture()
 def invalid_full_path(tmp_path):
-    path = "Z:\\invalid\\test.tfr"
+    path = "Z:\\invalid\\tests.tfr"
     return path
 
 

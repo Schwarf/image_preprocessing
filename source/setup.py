@@ -17,7 +17,7 @@ setup(
         "data_access.files.implementations",
         "data_access.interfaces",
         "image_representation",
-        "image_representation.test",
+        "image_representation.tests",
         "image_representation.interfaces",
         "image_representation.implementations",
     ],
