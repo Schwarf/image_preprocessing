@@ -1,5 +1,6 @@
 from typing import Optional
 
+import numpy
 from contracts import contract
 from data_access.files.interfaces.i_image_loader import IImageLoader
 from image_factories.interfaces.i_pillow_image_factory import IPillowImageFactory
@@ -10,18 +11,31 @@ from image_representation.interfaces.i_image_data_builder import IImageDataBuild
 from pure_interface import adapt_args
 
 
-class PillowImageFactory(IPillowImageFactory):
+class PillowImageFactory(IPillowImageFactory, object):
     def __init__(self) -> None:
         self._image_builder: IImageDataBuilder = ImageDataBuilder()
         self._image_loader: Optional[IImageLoader] = None
-
-    @contract(returns=IImageData)
-    def next_image(self) -> IImageData:
-        pass
+        self._file = None
+        self._image: Optional[IImageData] = None
 
     @adapt_args(loader=IImageLoader)
     def set_image_loader(self, loader: IImageLoader) -> None:
         if loader is None:
             raise ValueError("ImageLoader in PillowImageFactory is 'None'.")
         self._image_loader = loader
-        self._image_loader.open()
+
+    def _build_image(self):
+        self._image_builder.set_number_of_rows(self._file.height)
+        self._image_builder.set_number_of_columns(self._file.width)
+        self._image_builder.set_number_of_channels(self._file.layers)
+        self._image_builder.set_matrix(numpy.asarray(self._file))
+        self._image_builder.set_bit_depth(self._file.bits)
+        self._image_builder.set_color_mode(self._file.mode)
+        self._image = ImageData(self._image_builder)
+
+    @contract(returns=IImageData)
+    def next_image_from_file(self, path_to_file: str):
+        self._image_loader.open(path_to_file)
+        self._file = self._image_loader.get_data()
+        self._build_image()
+        return self._image
