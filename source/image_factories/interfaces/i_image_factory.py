@@ -1,11 +1,5 @@
-from contracts import contract
-from image_representation.interfaces.i_image_data import IImageData
-from pure_contracts import ContractInterface
-from pure_interface import abstractmethod
+from pure_interface import Interface
 
 
-class IImageFactory(ContractInterface):
-    @abstractmethod
-    @contract(returns=IImageData)
-    def next_image(self):
-        pass
+class IImageFactory(Interface):
+    pass
