@@ -1,4 +1,5 @@
 import mock
+import PIL.Image
 import pytest
 from data_access.files.implementations.pillow_image_loader import PillowImageLoader
 
@@ -17,13 +18,13 @@ def invalid_full_path(tmp_path):
 
 @pytest.fixture()
 def create_tmp_file(full_path):
-    file = open(full_path, "w")
-    file.close()
+    file = PIL.Image.new("RGB", (1, 1))
+    file.save(full_path, "PNG")
     return True
 
 
 class TestPillowImageReader:
-    @mock.patch.object(PillowImageLoader, "open")
+    @mock.patch.object(PIL.Image, "open")
     def test_open(self, mock, full_path, create_tmp_file):
         create_tmp_file
         loader = PillowImageLoader()
@@ -44,10 +45,11 @@ class TestPillowImageReader:
         loader.get_data()
         mock.assert_called_once()
 
-    @mock.patch.object(PillowImageLoader, "close")
+    @mock.patch.object(PIL.Image.Image, "close")
     def test_close_is_called(self, mock, full_path, create_tmp_file):
         create_tmp_file
         loader = PillowImageLoader()
+        loader.open(full_path)
         mock.assert_not_called()
         loader.close()
         mock.assert_called_once()
