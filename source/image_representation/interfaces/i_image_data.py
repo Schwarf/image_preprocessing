@@ -32,3 +32,8 @@ class IImageData(Interface):
     @abstractmethod
     def color_mode(self) -> str:
         pass
+
+    @property
+    @abstractmethod
+    def data_source_identifier(self) -> str:
+        pass

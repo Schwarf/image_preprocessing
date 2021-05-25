@@ -13,6 +13,7 @@ class TestImageDataBuilder:
             ["number_of_columns", 12, "Number of columns .*"],
             ["number_of_channels", 3, "Number of channels .*"],
             ["color_mode", "RGB", "Color mode .*"],
+            ["data_source_identifier", "D:\\some\\file", "Data source identifier .*"],
         ],
     )
     def test_scalar_properties_and_set_methods(self, scalar_property, property_value, exception_text):

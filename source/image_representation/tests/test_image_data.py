@@ -14,13 +14,14 @@ class TestImageData:
             ["number_of_columns", 12],
             ["number_of_channels", 3],
             ["color_mode", "RGB"],
+            ["data_source_identifier", "D:\\some\\file"],
         ],
     )
     def test_scalar_properties(self, mock_image_builder, scalar_property, property_value):
         setattr(mock_image_builder, scalar_property, property_value)
         image = ImageData(mock_image_builder)
         assert getattr(image, scalar_property) is not None
-        assert getattr(image, scalar_property) is property_value
+        assert getattr(image, scalar_property) == property_value
 
     @mock.patch("image_representation.interfaces.i_image_data_builder.IImageDataBuilder", autospec=True)
     @pytest.mark.parametrize(

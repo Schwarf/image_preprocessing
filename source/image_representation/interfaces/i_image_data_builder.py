@@ -29,3 +29,7 @@ class IImageDataBuilder(IImageData, Interface):
     @abstractmethod
     def set_color_mode(self, color_mode: str) -> None:
         pass
+
+    @abstractmethod
+    def set_data_source_identifier(self, data_source_identifier: str) -> None:
+        pass
