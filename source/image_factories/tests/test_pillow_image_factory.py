@@ -1,6 +1,6 @@
 import mock
 import pytest
-from image_factories.implementations.pillow_image_factory import PillowImageFactory
+from image_factories.implementations.resnet_image_from_pillow_image import PillowImageFactory
 from pure_interface import AdaptionError
 
 
