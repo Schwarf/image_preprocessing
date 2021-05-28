@@ -1,10 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
-
-import PIL
+from typing import Any, Tuple
 
 
 class IPillowImageResize(ABC):
     @abstractmethod
-    def resize(self, new_shape: Tuple[int, int], image: PIL.Image) -> PIL.Image:
+    def resize(self, new_shape: Tuple[int, int], image: Any) -> Any:
         pass

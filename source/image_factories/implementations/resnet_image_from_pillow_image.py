@@ -1,7 +1,6 @@
-from typing import Optional, Tuple
+from typing import Any, Optional, Tuple
 
 import numpy
-import PIL
 from contracts import contract
 from data_access.files.interfaces.i_image_loader import IImageLoader
 from image_factories.interfaces.i_image_from_pillow_image import IImageFromPillowImage
@@ -36,7 +35,7 @@ class ResnetImageFromPillowImage(IImageFromPillowImage, IPillowImageResize, obje
         self._image_builder.set_color_mode(self._file.mode)
         self._image = ImageData(self._image_builder)
 
-    def resize(self, new_shape: Tuple[int, int], image: PIL.Image) -> PIL.Image:
+    def resize(self, new_shape: Tuple[int, int], image: Any) -> Any:
         return self._file.resize(new_shape)
 
     @contract(returns=IImageData)
