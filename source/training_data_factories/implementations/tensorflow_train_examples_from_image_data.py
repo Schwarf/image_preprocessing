@@ -46,7 +46,7 @@ class TensorflowTrainExamplesFromImageData(ITensorflowTrainExamplesFromImageData
             raise ValueError("Image data is 'None' in TensorflowTrainExamplesFromImageData.")
         self._create_tensorflow_2d_unsigned_integer_feature_from_image_data()
         train_example = tensorflow.train.Example(
-            features=tensorflow.tarin.Features(feature=self._tf_feature_dictionary)
+            features=tensorflow.train.Features(feature=self._tf_feature_dictionary)
         )
 
         return train_example
