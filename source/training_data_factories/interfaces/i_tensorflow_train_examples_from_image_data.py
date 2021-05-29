@@ -5,6 +5,5 @@ from training_data_factories.interfaces.i_tensorflow_train_examples_factory impo
 
 class ITensorflowTrainExamplesFromImageData(ITensorflowTrainExampleFactory, Interface):
     @abstractmethod
-    @adapt_args(image_data=IImageData)
     def set_image_data(self, image_data: IImageData) -> None:
         pass

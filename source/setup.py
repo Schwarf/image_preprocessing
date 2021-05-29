@@ -27,5 +27,5 @@ setup(
     author="Andreas Scharf",
     author_email="",
     description="",
-    install_requires=["PyContracts", "pytest", "mock", "PIL", "tensorflow"],
+    install_requires=["PyContracts", "pytest", "mock", "PIL", "tensorflow", "numpy"],
 )
