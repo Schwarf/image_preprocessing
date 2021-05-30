@@ -11,6 +11,7 @@ class ImageData(IImageData, object):
         self._number_of_columns = image_builder.number_of_columns
         self._number_of_rows = image_builder.number_of_rows
         self._number_of_channels = image_builder.number_of_channels
+        self._data_source_identifier = image_builder.data_source_identifier
 
     @property
     def matrix(self) -> numpy.ndarray:
@@ -35,3 +36,7 @@ class ImageData(IImageData, object):
     @property
     def color_mode(self) -> str:
         return self._color_mode
+
+    @property
+    def data_source_identifier(self) -> str:
+        return self._data_source_identifier

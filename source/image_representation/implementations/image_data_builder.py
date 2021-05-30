@@ -10,6 +10,7 @@ class ImageDataBuilder(IImageDataBuilder, object):
         self._number_of_channels = None
         self._number_of_rows = None
         self._number_of_columns = None
+        self._data_source_identifier = None
 
     def set_matrix(self, matrix: numpy.ndarray) -> None:
         self._matrix = matrix
@@ -28,6 +29,9 @@ class ImageDataBuilder(IImageDataBuilder, object):
 
     def set_color_mode(self, color_mode: str) -> None:
         self._color_mode = color_mode
+
+    def set_data_source_identifier(self, data_source_identifier: str) -> None:
+        self._data_source_identifier = data_source_identifier
 
     @property
     def matrix(self) -> numpy.ndarray:
@@ -64,3 +68,9 @@ class ImageDataBuilder(IImageDataBuilder, object):
         if self._color_mode is None:
             raise ValueError("Color mode is 'None' in ImageBuilder!")
         return self._color_mode
+
+    @property
+    def data_source_identifier(self) -> str:
+        if self._data_source_identifier is None:
+            raise ValueError("Data source identifier is 'None' in ImageBuilder!")
+        return self._data_source_identifier
