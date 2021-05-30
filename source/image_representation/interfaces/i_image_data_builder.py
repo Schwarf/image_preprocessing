@@ -1,5 +1,3 @@
-from typing import Any
-
 import numpy
 from image_representation.interfaces.i_image_data import IImageData
 from pure_interface import Interface, abstractmethod

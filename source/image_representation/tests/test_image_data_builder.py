@@ -1,4 +1,3 @@
-import mock
 import numpy
 import pytest
 from image_representation.implementations.image_data_builder import ImageDataBuilder
