@@ -5,7 +5,7 @@ from typing import Any
 from data_access.files.interfaces.i_file_reader import IFileReader
 
 
-class JSONFileReader(IFileReader):
+class JSONFileReader(IFileReader, object):
     def __init__(self):
         self._file = None
 
