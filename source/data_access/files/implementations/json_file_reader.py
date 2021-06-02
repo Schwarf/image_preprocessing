@@ -15,7 +15,11 @@ class JSONFileReader(IFileReader, object):
         self._file = open(path_to_file, "r")
 
     def get_data(self) -> Any:
-        return json.load(self._file)
+        try:
+            data = json.load(self._file)
+        except ValueError as error:
+            raise ValueError("The file is not a JSON file. The original error message is: .") from error
+        return data
 
     def close(self) -> None:
         self._file.close()
