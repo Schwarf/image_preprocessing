@@ -1,7 +1,7 @@
-from labels.interfaces.i_max_person_count_5_label import IMaxPersonCount5Label
+from labels.interfaces.i_max_person_count_label import IMaxPersonCountLabel
 
 
-class MaxPersonCount5Label(IMaxPersonCount5Label, object):
+class MaxPersonCount5Label(IMaxPersonCountLabel, object):
     NAME = "max_person_count_5_label"
 
     def __init__(self, number_of_persons):

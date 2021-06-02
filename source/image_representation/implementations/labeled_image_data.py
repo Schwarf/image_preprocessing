@@ -7,7 +7,7 @@ from labels.interfaces.i_label_feature import ILabelFeature
 from pure_interface import adapt_args
 
 
-class LabeledImageData(ILabeledImageData):
+class LabeledImageData(ILabeledImageData, object):
     @adapt_args(image_data=IImageData)
     def __init__(self, image_data: IImageData):
         self._image_data = image_data
@@ -44,7 +44,7 @@ class LabeledImageData(ILabeledImageData):
     @adapt_args(label_feature=ILabelFeature)
     def add_label_feature(self, label_feature):
         if label_feature.name in self._dict_of_label_features.keys():
-            raise KeyError(f"The name for the label '{label_feature.name}' already exists!")
+            raise KeyError(f"The name of the label '{label_feature.name}' already exists in dictionary!")
         self._dict_of_label_features[label_feature.name] = label_feature
 
     @property
