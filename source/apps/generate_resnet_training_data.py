@@ -4,6 +4,9 @@ from data_access.files.implementations.json_file_reader import JSONFileReader
 from data_access.files.implementations.pillow_image_loader import PillowImageLoader
 from data_access.files.implementations.tensorflow_record_writer import TensorflowRecordWriter
 from image_factories.implementations.resnet_image_from_pillow_image import ResnetImageFromPillowImage
+from image_representation.interfaces.i_labeled_image_data import ILabeledImageData
+from labels.implementations.label_image_data import LabelImageData
+from labels.implementations.max_person_count_5_label import MaxPersonCount5Label
 from training_data_factories.implementations.tensorflow_train_examples_from_image_data import (
     TensorflowTrainExamplesFromImageData,
 )
@@ -31,7 +34,12 @@ if __name__ == "__main__":
         if label == invalid_label:
             continue
         image_data = image_factory.next_image_from_file(file_path)
-        training_data_factory.set_image_data(image_data)
+        label_image_data = LabelImageData()
+        label_image_data.set_data(image_data)
+        max_person_5_label = MaxPersonCount5Label(label)
+        labeled_image_data = label_image_data.assign(max_person_5_label)
+
+        training_data_factory.set_image_data(labeled_image_data)
 
         full_record_path = cl_args.tf_record_destination + record_name + str(index) + record_suffix
         tensorflow_record_writer.open(full_record_path)
