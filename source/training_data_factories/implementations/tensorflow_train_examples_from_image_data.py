@@ -3,7 +3,8 @@ from typing import Any, Dict
 import numpy
 import tensorflow
 from image_representation.interfaces.i_image_data import IImageData
-from pure_interface import adapt_args
+from image_representation.interfaces.i_labeled_image_data import ILabeledImageData
+from labels.interfaces.i_scalar_label_feature import IScalarLabelFeature
 from training_data_factories.interfaces.i_tensorflow_train_examples_from_image_data import (
     ITensorflowTrainExamplesFromImageData,
 )
@@ -35,9 +36,15 @@ class TensorflowTrainExamplesFromImageData(ITensorflowTrainExamplesFromImageData
         image_data_feature = self._image_data.matrix.astype(image_data_type).tobytes()
         self._tf_feature_dictionary[shape_descriptor] = self._create_tensorflow_train_feature(image_shape_feature)
         self._tf_feature_dictionary[image_data_descriptor] = self._create_tensorflow_train_feature(image_data_feature)
+        if ILabeledImageData.provided_by(self._image_data, allow_implicit=True):
+            for name, label in self._image_data.dict_of_label_features.items():
+                if isinstance(label, IScalarLabelFeature):
+                    self._tf_feature_dictionary[name] = self._create_tensorflow_train_feature(
+                        numpy.int16(label.value).tobytes()
+                    )
+
         self._image_data = None
 
-    @adapt_args(image_data=IImageData)
     def set_image_data(self, image_data: IImageData) -> None:
         self._image_data = image_data
 
