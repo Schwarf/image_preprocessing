@@ -35,7 +35,7 @@ class TestLabeledImageData:
         for property_name in properties:
             assert getattr(labeled_image, property_name) == getattr(mock_image_data, property_name)
 
-    @mock.patch("labels.interfaces.i_label_feature.ILabelFeature", autospec=True)
+    @mock.patch("labels.interfaces.i_scalar_label_feature.IScalarLabelFeature", autospec=True)
     def test_add_label_feature(self, mock_label_feature, mock_image_data):
         labeled_image = LabeledImageData(mock_image_data)
         mock_label_feature.name = "Label"
@@ -44,7 +44,7 @@ class TestLabeledImageData:
         with pytest.raises(KeyError, match="The name of the label .*"):
             labeled_image.add_label_feature(mock_label_feature)
 
-    @mock.patch("labels.interfaces.i_label_feature.ILabelFeature", autospec=True)
+    @mock.patch("labels.interfaces.i_scalar_label_feature.IScalarLabelFeature", autospec=True)
     def test_dict_of_label_feature(self, mock_label_feature, mock_image_data):
         labeled_image = LabeledImageData(mock_image_data)
         label1 = "Label1"

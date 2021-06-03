@@ -1,7 +1,7 @@
-from labels.interfaces.i_max_person_count_label import IMaxPersonCountLabel
+from labels.interfaces.i_scalar_label_feature import IScalarLabelFeature
 
 
-class MaxPersonCount5Label(IMaxPersonCountLabel, object):
+class MaxPersonCount5Label(IScalarLabelFeature, object):
     NAME = "max_person_count_5_label"
 
     def __init__(self, number_of_persons):
@@ -12,7 +12,7 @@ class MaxPersonCount5Label(IMaxPersonCountLabel, object):
         self._number_of_persons = number_of_persons
 
     @property
-    def number_of_persons(self):
+    def value(self):
         return self._number_of_persons
 
     @property

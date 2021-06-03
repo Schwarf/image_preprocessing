@@ -6,13 +6,13 @@ class TestMaxPersonCount5Label:
     def test_valid_person_count_below5(self):
         number_of_persons = 5
         label = MaxPersonCount5Label(number_of_persons)
-        assert label.number_of_persons == number_of_persons
+        assert label.value == number_of_persons
 
     def test_valid_person_count_above5(self):
         number_of_persons = 8
         label = MaxPersonCount5Label(number_of_persons)
         max_number_of_persons = 5
-        assert label.number_of_persons == max_number_of_persons
+        assert label.value == max_number_of_persons
 
     def test_invalid_person_count(self):
         number_of_persons = -1

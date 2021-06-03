@@ -25,7 +25,7 @@ class TestLabelImageData:
         label_image_data.set_data(mock_imaga_data)
         assert label_image_data._labeled_image_data is not None
 
-    @mock.patch("labels.interfaces.i_label_feature.ILabelFeature", autospec=True)
+    @mock.patch("labels.interfaces.i_scalar_label_feature.IScalarLabelFeature", autospec=True)
     def test_assign_label_to_None(self, mock_label):
         label_image_data = LabelImageData()
         with pytest.raises(ValueError, match="Can not assign label, .*"):
@@ -40,7 +40,7 @@ class TestLabelImageData:
             label_image_data.assign(label)
 
     @mock.patch("image_representation.interfaces.i_image_data.IImageData", autospec=True)
-    @mock.patch("labels.interfaces.i_label_feature.ILabelFeature", autospec=True)
+    @mock.patch("labels.interfaces.i_scalar_label_feature.IScalarLabelFeature", autospec=True)
     @mock.patch.object(LabeledImageData, "add_label_feature")
     def test_assign_label(self, mock, mock_label, mock_image_data):
         label_image_data = LabelImageData()

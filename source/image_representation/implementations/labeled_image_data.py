@@ -3,7 +3,7 @@ from typing import Dict
 import numpy
 from image_representation.interfaces.i_image_data import IImageData
 from image_representation.interfaces.i_labeled_image_data import ILabeledImageData
-from labels.interfaces.i_label_feature import ILabelFeature
+from labels.interfaces.i_scalar_label_feature import IScalarLabelFeature
 from pure_interface import adapt_args
 
 
@@ -11,7 +11,7 @@ class LabeledImageData(ILabeledImageData, object):
     @adapt_args(image_data=IImageData)
     def __init__(self, image_data: IImageData):
         self._image_data = image_data
-        self._dict_of_label_features: Dict[str, ILabelFeature] = {}
+        self._dict_of_label_features: Dict[str, IScalarLabelFeature] = {}
 
     @property
     def matrix(self) -> numpy.ndarray:
@@ -41,7 +41,7 @@ class LabeledImageData(ILabeledImageData, object):
     def data_source_identifier(self) -> str:
         return self._image_data.data_source_identifier
 
-    @adapt_args(label_feature=ILabelFeature)
+    @adapt_args(label_feature=IScalarLabelFeature)
     def add_label_feature(self, label_feature):
         if label_feature.name in self._dict_of_label_features.keys():
             raise KeyError(f"The name of the label '{label_feature.name}' already exists in dictionary!")

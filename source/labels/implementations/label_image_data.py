@@ -5,7 +5,7 @@ from image_representation.implementations.labeled_image_data import LabeledImage
 from image_representation.interfaces.i_image_data import IImageData
 from image_representation.interfaces.i_labeled_image_data import ILabeledImageData
 from labels.interfaces.i_label_data import ILabelData
-from labels.interfaces.i_label_feature import ILabelFeature
+from labels.interfaces.i_scalar_label_feature import IScalarLabelFeature
 from pure_interface import Interface, abstractmethod, adapt_args
 
 
@@ -14,7 +14,7 @@ class LabelImageData(ILabelData, object):
         self._labeled_image_data: Optional[ILabeledImageData] = None
 
     @contract(returns=ILabeledImageData)
-    @adapt_args(label=ILabelFeature)
+    @adapt_args(label=IScalarLabelFeature)
     def assign(self, label):
         if self._labeled_image_data is None:
             raise ValueError("Can not assign label, because labeled image data is 'None'!")
