@@ -1,17 +1,18 @@
 from pure_interface import Interface, abstractmethod
 
 
-class IResidualLayer(Interface):
+class IHyperParameters(Interface):
+    @property
     @abstractmethod
-    def call(self, inputs, training):
+    def number_of_epochs(self):
         pass
 
     @property
     @abstractmethod
-    def number_of_strides(self):
+    def initial_learning_rate(self):
         pass
 
     @property
     @abstractmethod
-    def number_of_kernels(self):
+    def batch_size(self):
         pass
