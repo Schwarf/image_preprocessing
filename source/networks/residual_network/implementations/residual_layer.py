@@ -1,48 +1,45 @@
 import tensorflow
+from networks.residual_network.interfaces.i_residual_layer_parameters import IResidualLayerParameters
+from pure_interface import adapt_args
 
 
-class ResnetLayer(tensorflow.keras.layers.Layer):
-    def __init__(self, number_of_filters, stride_size, kernel_size):
-        super(ResnetLayer, self).__init__()
-        if number_of_filters < 1:
-            raise ValueError(f"Invalid number of filters: {number_of_filters}")
-        if stride_size < 1:
-            raise ValueError(f"Invalid stride size: {stride_size}")
-        if kernel_size[0] < 1 or kernel_size[1] < 1:
-            raise ValueError(f"Invalid kernel size: {kernel_size}")
-
-        self._number_of_filters = number_of_filters
-        self._stride_size = stride_size
-        self._kernel_size = kernel_size
+class ResidualLayer(tensorflow.keras.layers.Layer):
+    @adapt_args(builder=IResidualLayerParameters)
+    def __init__(self, builder):
+        super(ResidualLayer, self).__init__()
+        self._number_of_kernels = builder.number_of_kernels
+        self._stride_size = builder.stride_size
+        self._kernel_size = builder.kernel_size
+        self._padding = builder.padding
         self._minimal_kernel_size = (1, 1)
         self._minimal_stride_size = (1, 1)
-        self._same_padding = "same"
-        self._valid_padding = "valid"
+
+        self._default_valid_padding = "valid"
         self._down_sample_model = None
         self._construct()
 
     def _construct(self):
 
         self._convolution_1 = tensorflow.keras.layers.Conv2D(
-            filters=self._number_of_filters,
+            filters=self._number_of_kernels,
             kernel_size=self._kernel_size,
             strides=self._stride_size,
-            padding=self._same_padding,
+            padding=self._padding,
         )
         self._batch_normalization_1 = tensorflow.keras.layers.BatchNormalization()
         self._convolution_2 = tensorflow.keras.layers.Conv2D(
-            filters=self._number_of_filters,
+            filters=self._number_of_kernels,
             kernel_size=self._kernel_size,
             strides=self._minimal_stride_size,
-            padding=self._same_padding,
+            padding=self._padding,
         )
         self._batch_normalization_2 = tensorflow.keras.layers.BatchNormalization()
 
         self._down_sample_convolution = tensorflow.keras.layers.Conv2D(
-            filters=self._number_of_filters,
+            filters=self._number_of_kernels,
             kernel_size=self._minimal_kernel_size,
             strides=self._minimal_stride_size,
-            padding=self._valid_padding,
+            padding=self._default_valid_padding,
         )
 
         self._down_sample_batch_normalization = tensorflow.keras.layers.BatchNormalization()
