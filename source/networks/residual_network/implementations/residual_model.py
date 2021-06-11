@@ -1,8 +1,9 @@
 import tensorflow
 from networks.residual_network.implementations.residual_block_factory import ResidualBlockFactory
+from networks.residual_network.interfaces.i_residual_model import IResidualModel
 
 
-class ResidualModel(tensorflow.keras.Model):
+class ResidualModel(IResidualModel, tensorflow.keras.Model, object):
     def __init__(self, size_of_block_1, size_of_block_2, size_of_block_3, size_of_block_4, number_of_classes):
         super(ResidualModel, self).__init__()
 
@@ -36,8 +37,8 @@ class ResidualModel(tensorflow.keras.Model):
             units=number_of_classes, activation=tensorflow.keras.activations.softmax
         )
 
-    def call(self, input, **kwargs):
-        convolution = self._convolution(input)
+    def call(self, input_data, **kwargs):
+        convolution = self._convolution(input_data)
         batch_normalization = self._batch_normalization(convolution)
         relu_activation = tensorflow.nn.relu(batch_normalization)
         max_pooling = self._max_pooling(relu_activation)
@@ -46,5 +47,8 @@ class ResidualModel(tensorflow.keras.Model):
         residual_block_3 = self._residual_block_2(residual_block_2)
         residual_block_4 = self._residual_block_2(residual_block_3)
         average_pooling = self._average_pooling(residual_block_4)
-        result = self._fully_connected(average_pooling)
-        return result
+        output = self._fully_connected(average_pooling)
+        return output
+
+    def get_config(self):
+        pass

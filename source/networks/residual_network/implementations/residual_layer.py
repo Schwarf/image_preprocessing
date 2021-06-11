@@ -1,9 +1,10 @@
 import tensorflow
+from networks.residual_network.interfaces.i_residual_layer import IResidualLayer
 from networks.residual_network.interfaces.i_residual_layer_parameters import IResidualLayerParameters
 from pure_interface import adapt_args
 
 
-class ResidualLayer(tensorflow.keras.layers.Layer):
+class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
     @adapt_args(builder=IResidualLayerParameters)
     def __init__(self, builder):
         super(ResidualLayer, self).__init__()
@@ -16,9 +17,9 @@ class ResidualLayer(tensorflow.keras.layers.Layer):
 
         self._default_valid_padding = "valid"
         self._down_sample_model = None
-        self._construct()
+        self._construct_residual_layer()
 
-    def _construct(self):
+    def _construct_residual_layer(self):
 
         self._convolution_1 = tensorflow.keras.layers.Conv2D(
             filters=self._number_of_kernels,
@@ -51,10 +52,10 @@ class ResidualLayer(tensorflow.keras.layers.Layer):
         else:
             self._down_sample_model = lambda identity: identity
 
-    def call(self, input, training=None, **kwargs):
-        down_sample_model = self._down_sample_model(input)
+    def call(self, input_data, training=None, **kwargs):
+        down_sample_model = self._down_sample_model(input_data)
 
-        compute_convulution_1 = self._convolution_1(input)
+        compute_convulution_1 = self._convolution_1(input_data)
         compute_batch_normalization_1 = self._batch_normalization_1(compute_convulution_1, training=training)
         compute_relu_activation = tensorflow.nn.relu(compute_batch_normalization_1)
         compute_convulution_2 = self._convolution_2(compute_relu_activation)
@@ -63,3 +64,7 @@ class ResidualLayer(tensorflow.keras.layers.Layer):
         down_sample = tensorflow.keras.layers.add([down_sample_model, compute_batch_normalization_2])
         final_activation = tensorflow.nn.relu(down_sample)
         return final_activation
+
+    def get_config(self):
+        config = super(ResidualLayer, self).get_config()
+        return config
