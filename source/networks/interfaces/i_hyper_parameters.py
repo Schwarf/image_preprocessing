@@ -9,7 +9,7 @@ class IHyperParameters(Interface):
 
     @property
     @abstractmethod
-    def initial_learning_rate(self):
+    def learning_rate(self):
         pass
 
     @property
