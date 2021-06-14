@@ -45,7 +45,7 @@ class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
 
         self._down_sample_batch_normalization = tensorflow.keras.layers.BatchNormalization()
 
-        if self._stride_size == 1:
+        if self._stride_size != 1:
             self._down_sample_model = tensorflow.keras.Sequential()
             self._down_sample_model.add(self._down_sample_convolution)
             self._down_sample_model.add(self._down_sample_batch_normalization)

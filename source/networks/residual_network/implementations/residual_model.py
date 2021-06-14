@@ -37,18 +37,18 @@ class ResidualModel(IResidualModel, tensorflow.keras.Model, object):
             units=number_of_classes, activation=tensorflow.keras.activations.softmax
         )
 
-    def call(self, input_data, **kwargs):
+    def call(self, input_data, training):
         convolution = self._convolution(input_data)
-        batch_normalization = self._batch_normalization(convolution)
+        batch_normalization = self._batch_normalization(convolution, training=training)
         relu_activation = tensorflow.nn.relu(batch_normalization)
         max_pooling = self._max_pooling(relu_activation)
-        residual_block_1 = self._residual_block_1(max_pooling)
-        residual_block_2 = self._residual_block_2(residual_block_1)
-        residual_block_3 = self._residual_block_2(residual_block_2)
-        residual_block_4 = self._residual_block_2(residual_block_3)
+        residual_block_1 = self._residual_block_1(max_pooling, training=training)
+        residual_block_2 = self._residual_block_2(residual_block_1, training=training)
+        residual_block_3 = self._residual_block_2(residual_block_2, training=training)
+        residual_block_4 = self._residual_block_2(residual_block_3, training=training)
         average_pooling = self._average_pooling(residual_block_4)
         output = self._fully_connected(average_pooling)
         return output
 
     def get_config(self):
-        pass
+        super().get_config()
