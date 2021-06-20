@@ -19,6 +19,11 @@ class IResidualLayerParameters(Interface):
 
     @property
     @abstractmethod
+    def name(self):
+        pass
+
+    @property
+    @abstractmethod
     def stride_size(self):
         pass
 
@@ -36,4 +41,8 @@ class IResidualLayerParameters(Interface):
 
     @abstractmethod
     def set_padding(self, padding):
+        pass
+
+    @abstractmethod
+    def set_name(self, name):
         pass

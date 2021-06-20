@@ -9,3 +9,7 @@ class IResidualLayer(Interface):
     @abstractmethod
     def get_config(self):
         pass
+
+    @abstractmethod
+    def name(self):
+        pass

@@ -5,13 +5,14 @@ from pure_interface import adapt_args
 
 
 class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
-    @adapt_args(builder=IResidualLayerParameters)
-    def __init__(self, builder):
+    @adapt_args
+    def __init__(self, builder: IResidualLayerParameters):
         super(ResidualLayer, self).__init__()
         self._number_of_kernels = builder.number_of_kernels
         self._stride_size = builder.stride_size
         self._kernel_size = builder.kernel_size
         self._padding = builder.padding
+        self._name = builder.name
         self._minimal_kernel_size = (1, 1)
         self._minimal_stride_size = (1, 1)
 
@@ -68,3 +69,6 @@ class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
     def get_config(self):
         config = super(ResidualLayer, self).get_config()
         return config
+
+    def name(self):
+        return self._name

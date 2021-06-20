@@ -10,6 +10,7 @@ class ResiduaLayerParameters(IResidualLayerParameters, object):
         self._kernel_size = None
         self._stride_size = None
         self._padding = None
+        self._name = None
 
     @property
     def number_of_kernels(self):
@@ -43,6 +44,12 @@ class ResiduaLayerParameters(IResidualLayerParameters, object):
             raise ValueError(f"Padding is invalid: {self._padding}")
         return self._padding
 
+    @property
+    def name(self):
+        if self._name is None:
+            raise ValueError("Name is None!")
+        return self._name
+
     def set_number_of_kernels(self, number_of_kernels):
         self._number_of_kernels = number_of_kernels
 
@@ -54,3 +61,6 @@ class ResiduaLayerParameters(IResidualLayerParameters, object):
 
     def set_padding(self, padding):
         self._padding = padding
+
+    def set_name(self, name):
+        self._name = name
