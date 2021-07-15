@@ -46,8 +46,6 @@ class ResiduaLayerParameters(IResidualLayerParameters, object):
 
     @property
     def name(self):
-        if self._name is None:
-            raise ValueError("Name is None!")
         return self._name
 
     def set_number_of_kernels(self, number_of_kernels):

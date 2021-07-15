@@ -12,19 +12,19 @@ class ResidualModel(IResidualModel, tensorflow.keras.Model, object):
         self._max_pooling = tensorflow.keras.layers.MaxPool2D(pool_size=(3, 3), strides=2, padding="same")
 
         block_factory_1 = ResidualBlockFactory(
-            name="residual_block1", number_of_residual_layers=size_of_block_1, number_of_kernels=64, stride_size=1
+            number_of_residual_layers=size_of_block_1, number_of_kernels=64, stride_size=1
         )
 
         block_factory_2 = ResidualBlockFactory(
-            name="residual_block2", number_of_residual_layers=size_of_block_2, number_of_kernels=128, stride_size=2
+            number_of_residual_layers=size_of_block_2, number_of_kernels=128, stride_size=2
         )
 
         block_factory_3 = ResidualBlockFactory(
-            name="residual_block3", number_of_residual_layers=size_of_block_3, number_of_kernels=256, stride_size=2
+            number_of_residual_layers=size_of_block_3, number_of_kernels=256, stride_size=2
         )
 
         block_factory_4 = ResidualBlockFactory(
-            name="residual_block4", number_of_residual_layers=size_of_block_4, number_of_kernels=512, stride_size=2
+            number_of_residual_layers=size_of_block_4, number_of_kernels=512, stride_size=2
         )
 
         self._residual_block_1 = block_factory_1.build_block()
@@ -44,8 +44,8 @@ class ResidualModel(IResidualModel, tensorflow.keras.Model, object):
         max_pooling = self._max_pooling(relu_activation)
         residual_block_1 = self._residual_block_1(max_pooling, training=training)
         residual_block_2 = self._residual_block_2(residual_block_1, training=training)
-        residual_block_3 = self._residual_block_2(residual_block_2, training=training)
-        residual_block_4 = self._residual_block_2(residual_block_3, training=training)
+        residual_block_3 = self._residual_block_3(residual_block_2, training=training)
+        residual_block_4 = self._residual_block_4(residual_block_3, training=training)
         average_pooling = self._average_pooling(residual_block_4)
         output = self._fully_connected(average_pooling)
         return output

@@ -5,7 +5,7 @@ from networks.residual_network.interfaces.i_residual_block_factory import IResid
 
 
 class ResidualBlockFactory(IResidualBlockFactory, object):
-    def __init__(self, name, number_of_residual_layers, number_of_kernels, stride_size):
+    def __init__(self, number_of_residual_layers, number_of_kernels, stride_size):
 
         self._layer_parameters = ResiduaLayerParameters()
         kernel_size = (3, 3)
@@ -13,7 +13,6 @@ class ResidualBlockFactory(IResidualBlockFactory, object):
         self._layer_parameters.set_padding("same")
         self._layer_parameters.set_number_of_kernels(number_of_kernels)
         self._layer_parameters.set_stride_size(stride_size)
-        self._layer_parameters.set_name(name)
         self._number_of_residual_layers = number_of_residual_layers
 
     def build_block(self):
