@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 environment_image_preprocessing/
 .idea
+*.local
 source/try_outs/
 __pycache__/
 *.py[cod]
