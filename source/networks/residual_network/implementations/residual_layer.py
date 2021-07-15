@@ -39,9 +39,7 @@ class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
         self._down_sample_convolution = tensorflow.keras.layers.Conv2D(
             filters=self._number_of_kernels,
             kernel_size=self._minimal_kernel_size,
-            strides=self._minimal_stride_size,
-            padding=self._default_valid_padding,
-        )
+            strides=self._stride_size)
 
         self._down_sample_batch_normalization = tensorflow.keras.layers.BatchNormalization()
 
