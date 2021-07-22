@@ -14,13 +14,11 @@ class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
         self._padding = builder.padding
         self._minimal_kernel_size = (1, 1)
         self._minimal_stride_size = (1, 1)
-
         self._default_valid_padding = "valid"
         self._down_sample_node = None
         self._construct_residual_layer()
 
     def _construct_residual_layer(self):
-
         self._convolution_1 = tensorflow.keras.layers.Conv2D(
             filters=self._number_of_kernels,
             kernel_size=self._kernel_size,
@@ -37,9 +35,8 @@ class ResidualLayer(IResidualLayer, tensorflow.keras.layers.Layer, object):
         self._batch_normalization_2 = tensorflow.keras.layers.BatchNormalization()
 
         self._down_sample_convolution = tensorflow.keras.layers.Conv2D(
-            filters=self._number_of_kernels,
-            kernel_size=self._minimal_kernel_size,
-            strides=self._stride_size)
+            filters=self._number_of_kernels, kernel_size=self._minimal_kernel_size, strides=self._stride_size
+        )
 
         self._down_sample_batch_normalization = tensorflow.keras.layers.BatchNormalization()
 

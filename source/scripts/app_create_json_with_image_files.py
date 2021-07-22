@@ -1,7 +1,9 @@
 import json
 import os
 from typing import List
+
 from source.data_access.files.implementations.json_file_reader import JSONFileReader
+
 
 def get_list_of_files(dir_name: str) -> List[str]:
     list_of_directories = os.listdir(dir_name)
@@ -19,7 +21,7 @@ def get_list_of_files(dir_name: str) -> List[str]:
 
 
 def create_json_label_file(file_list: List[str], image_path: str) -> None:
-    #path = "D:/Data/image_data/labels/"
+    # path = "D:/Data/image_data/labels/"
     path = "/media/linux_data/data/image_data/labels/"
     json_file_name = os.path.basename(image_path) + "_linux.json"
     default_label_value = -1
@@ -48,9 +50,9 @@ def replace_win_path_with_linux_path():
     json.dump(new_data, file_handle, indent=4)
 
 
-replace_win_path_with_linux_path()
-#image_path = "D:/Data/image_data/images/my_camera"
-#image_path = "/media/linux_data/data/image_data/labels/"
-#file_list = get_list_of_files(image_path)
+# replace_win_path_with_linux_path()
+# image_path = "D:/Data/image_data/images/my_camera"
+# image_path = "/media/linux_data/data/image_data/labels/"
+# file_list = get_list_of_files(image_path)
 
 # create_json_label_file(file_list, image_path)
