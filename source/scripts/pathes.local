@@ -1,0 +1,4 @@
+    label_file_path = "/media/linux_data/data/image_data/labels/my_camera_labeling_in_progress.json"
+    windows_path = "D:\\Data\\image_data\\images\\my_camera\\DCIM\\"
+    linux_path = "/media/linux_data/data/image_data/images/my_camera/DCIM/"
+    path = "/media/linux_data/data/image_data/labels/"
