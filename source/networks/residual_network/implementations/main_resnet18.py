@@ -9,7 +9,7 @@ resnet_model18.summary()
 # resnet_model34 = ResidualModel(3, 4, 6, 3, 1000)
 # resnet_model34.build(input_shape=(None, 224, 224, 3))
 # resnet_model34.summary()
-
+tensorflow.keras.losses.Loss
 loss_function = tensorflow.keras.losses.SparseCategoricalCrossentropy()
 optimizer = tensorflow.keras.optimizers.Adadelta()
 
