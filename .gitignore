@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 environment_image_preprocessing/
-tutorials/pytorch/data/
+source/tutorials/pytorch/data/
 scripts/pathes.local
 .idea
 __pycache__/
