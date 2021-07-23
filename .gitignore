@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 environment_image_preprocessing/
+source/tutorials/
 .idea
 *.local
 source/try_outs/

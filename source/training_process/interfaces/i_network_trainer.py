@@ -3,7 +3,7 @@ from pure_interface import Interface, abstractmethod
 
 class INetworkTrainer(Interface):
     @abstractmethod
-    def train(self):
+    def run(self):
         pass
 
     @abstractmethod
@@ -27,5 +27,17 @@ class INetworkTrainer(Interface):
         pass
 
     @abstractmethod
-    def set_metrics(self, metrics):
+    def set_training_loss_metric(self, training_loss_metric):
+        pass
+
+    @abstractmethod
+    def set_validation_loss_metric(self, validation_loss_metric):
+        pass
+
+    @abstractmethod
+    def set_training_metric(self, training_metric):
+        pass
+
+    @abstractmethod
+    def set_validation_metric(self, validation_metric):
         pass
